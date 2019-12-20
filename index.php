@@ -226,6 +226,120 @@
                         </div>
                     </div><!-- /# column -->
                 </div>
+
+
+            <!--aumentado incisio b-->
+
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title">PAQUETES TURISTICOS</h4>
+                            </div>
+                            <div class="form-group col-md-5">
+                            <label for="subSeccion">Paquete turistico</label>
+                            <select class="form-control" name="subSeccion" id="subSeccion">
+                            <option value="0">Sin seleccionar</option>
+                            
+                            <option value="Excursion">Excursion</option>
+                           
+                            </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card-body">
+                                        <!-- <canvas id="TrafficChart"></canvas>   -->
+                                        <div id="b" class="traffic-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card-body">
+                                        <div class="progress-box progress-1">
+                                            <h4 class="por-title">TODOS LOS AÑOS</h4>
+                                            <div class="por-txt">Santa Cruz <?php echo total("'Santa Cruz'");?></div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title"></h4>
+                                            <div class="por-txt">Cochabama <?php echo total("'Cochabamba'");?></div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title"></h4>
+                                            <div class="por-txt">La Paz <?php echo total("'La Paz'");?></div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /.card-body -->
+                                </div>
+                            </div> <!-- /.row -->
+                            <div class="card-body"></div>
+                        </div>
+                    </div><!-- /# column -->
+                </div>
+
+                <!--  fin inciso b-->
+
+
+                <!--INCISO C-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title">INGRESOS DE HOTELES</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card-body">
+                                        <!-- <canvas id="TrafficChart"></canvas>   -->
+                                        <div id="c" class="traffic-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card-body">
+                                        <div class="progress-box progress-1">
+                                            <h4 class="por-title">TODOS LOS AÑOS</h4>
+                                            <div class="por-txt">Santa Cruz <?php echo total("'Santa Cruz'");?></div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title"></h4>
+                                            <div class="por-txt">Cochabama <?php echo total("'Cochabamba'");?></div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="progress-box progress-2">
+                                            <h4 class="por-title"></h4>
+                                            <div class="por-txt">La Paz <?php echo total("'La Paz'");?></div>
+                                            <div class="progress mb-2" style="height: 5px;">
+                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /.card-body -->
+                                </div>
+                            </div> <!-- /.row -->
+                            <div class="card-body"></div>
+                        </div>
+                    </div><!-- /# column -->
+                </div>
+
+
+                <!--FIN INCISO C-->
+
+
+
+
+
                 <!--  /Traffic -->
                 <div class="clearfix"></div>
                 <!-- Orders -->
@@ -315,8 +429,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Realizado por Ingenieria de Sistemas 
-                        Tucla
-                        Erwin 
+                        Erwin
+                        Esteban 
                         Jesus 
                     </div>
                     <div class="col-sm-6 text-right">
@@ -391,6 +505,100 @@
             // Traffic Chart using chartist
             if ($('#traffic-chart').length) {
                 var chart = new Chartist.Line('#traffic-chart', {
+                  labels: ['2017', '2018', '2019'],
+                  <?php
+                  $cochabamba2017=consulta(2017,"'Cochabamba'");
+                  $cochabamba2018=consulta(2018,"'Cochabamba'");
+                  $cochabamba2019=consulta(2019,"'Cochabamba'");
+                  $santa2017=consulta(2017,"'Santa Cruz'");
+                  $santa2018=consulta(2018,"'Santa Cruz'");
+                  $santa2019=consulta(2019,"'Santa Cruz'");
+                  $paz2017=consulta(2017,"'La Paz'");
+                  $paz2018=consulta(2018,"'La Paz'");
+                  $paz2019=consulta(2019,"'La Paz'");
+                  echo "series: [
+                  
+                  [$santa2017, $santa2018, $santa2019],
+                  [$paz2017, $paz2018, $paz2019],
+                  [$cochabamba2017, $cochabamba2018, $cochabamba2019]
+                  ]";
+                  ?>
+              }, {
+                  low: 0,
+                  showArea: true,
+                  showLine: false,
+                  showPoint: false,
+                  fullWidth: true,
+                  axisX: {
+                    showGrid: true
+                }
+            });
+
+                chart.on('draw', function(data) {
+                    if(data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            }
+            //aumentando inciso b
+
+
+            if ($('#b').length) {
+                var chart = new Chartist.Line('#b', {
+                  labels: ['2017', '2018', '2019'],
+                  <?php
+                  $cochabamba2017=consulta(2017,"'Cochabamba'");
+                  $cochabamba2018=consulta(2018,"'Cochabamba'");
+                  $cochabamba2019=consulta(2019,"'Cochabamba'");
+                  $santa2017=consulta(2017,"'Santa Cruz'");
+                  $santa2018=consulta(2018,"'Santa Cruz'");
+                  $santa2019=consulta(2019,"'Santa Cruz'");
+                  $paz2017=consulta(2017,"'La Paz'");
+                  $paz2018=consulta(2018,"'La Paz'");
+                  $paz2019=consulta(2019,"'La Paz'");
+                  echo "series: [
+                  
+                  [$santa2017, $santa2018, $santa2019],
+                  [$paz2017, $paz2018, $paz2019],
+                  [$cochabamba2017, $cochabamba2018, $cochabamba2019]
+                  ]";
+                  ?>
+              }, {
+                  low: 0,
+                  showArea: true,
+                  showLine: false,
+                  showPoint: false,
+                  fullWidth: true,
+                  axisX: {
+                    showGrid: true
+                }
+            });
+
+                chart.on('draw', function(data) {
+                    if(data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            }
+            //INCISO C
+            if ($('#c').length) {
+                var chart = new Chartist.Line('#c', {
                   labels: ['2017', '2018', '2019'],
                   <?php
                   $cochabamba2017=consulta(2017,"'Cochabamba'");
