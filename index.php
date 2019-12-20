@@ -4,6 +4,11 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
+
+
+
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ela Admin - HTML5 Admin Template</title>
@@ -67,6 +72,7 @@
 </head>
 
 <body>
+    
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -75,12 +81,49 @@
                     <li class="active">
                         <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <!-- /.menu-title -->
-                   
-                    
-                    <!-- /.menu-title -->
+                    <li class="menu-title">UI elements</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
+                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
+                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
 
-                    
+                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
+                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
+                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
+                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
+                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
+                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
+                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">Icons</li><!-- /.menu-title -->
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                    </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
                         <ul class="sub-menu children dropdown-menu">
@@ -301,8 +344,8 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Realizado por Ingenieria de Sistemas 
-                        Tucla
-                        Erwin 
+                        Erwin
+                        Esteban 
                         Jesus 
                     </div>
                     <div class="col-sm-6 text-right">
@@ -313,6 +356,31 @@
         </footer>
         <!-- /.site-footer -->
     </div>
+    <?php
+   
+    function consulta($anio,$departamento){
+    global $conexion;
+    $sql="select  o.direccion , i.fecha  , count(h.nroHabitacion) AS UsoHabitaciones 
+    from dim_cliente1 c, dim_hotel o, dim_ingcliente i, dim_habitacion  h, dataproblema1 p
+    WHERE p.id_cliente1=c.id_cliente1 and p.id_hotel1=o.id_hotel1 and p.id_cliente1=i.id_ingClient1 AND o.direccion=$departamento and p.id_habitacion1=h.id_habitacion1 and YEAR(i.fecha)=$anio
+    GROUP BY o.direccion
+    having count(h.nroHabitacion)";
+    $result=mysqli_query($conexion,$sql);
+    $dep=mysqli_fetch_array($result);
+    return $dep['UsoHabitaciones'];
+    }
+    function total($departamento){
+        $conexion=mysqli_connect('localhost','root','','baseproyect2');
+        $sql="select  o.direccion , i.fecha  , count(h.nroHabitacion) AS UsoHabitaciones 
+        from dim_cliente1 c, dim_hotel o, dim_ingcliente i, dim_habitacion  h, dataproblema1 p
+        WHERE p.id_cliente1=c.id_cliente1 and p.id_hotel1=o.id_hotel1 and p.id_cliente1=i.id_ingClient1 AND o.direccion=$departamento and p.id_habitacion1=h.id_habitacion1
+        GROUP BY o.direccion
+        having count(h.nroHabitacion)";
+        $result=mysqli_query($conexion,$sql);
+        $dep=mysqli_fetch_array($result);
+        return $dep['UsoHabitaciones'];
+        }
+?>
     <!-- /#right-panel -->
 
     <!-- Scripts -->
@@ -345,102 +413,125 @@
         jQuery(document).ready(function($) {
             "use strict";
 
-            // Pie chart flotPie1
-            var piedata = [
-                { label: "Desktop visits", data: [[1,32]], color: '#5c6bc0'},
-                { label: "Tab visits", data: [[1,33]], color: '#ef5350'},
-                { label: "Mobile visits", data: [[1,35]], color: '#66bb6a'}
-            ];
-
-            $.plot('#flotPie1', piedata, {
-                series: {
-                    pie: {
-                        show: true,
-                        radius: 1,
-                        innerRadius: 0.65,
-                        label: {
-                            show: true,
-                            radius: 2/3,
-                            threshold: 1
-                        },
-                        stroke: {
-                            width: 0
-                        }
-                    }
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true
-                }
-            });
-            // Pie chart flotPie1  End
-            // cellPaiChart
-            var cellPaiChart = [
-                { label: "Direct Sell", data: [[1,65]], color: '#5b83de'},
-                { label: "Channel Sell", data: [[1,35]], color: '#00bfa5'}
-            ];
-            $.plot('#cellPaiChart', cellPaiChart, {
-                series: {
-                    pie: {
-                        show: true,
-                        stroke: {
-                            width: 0
-                        }
-                    }
-                },
-                legend: {
-                    show: false
-                },grid: {
-                    hoverable: true,
-                    clickable: true
-                }
-
-            });
+            
             // cellPaiChart End
-            // Line Chart  #flotLine5
-            var newCust = [[0, 3], [1, 5], [2,4], [3, 7], [4, 9], [5, 3], [6, 6], [7, 4], [8, 10]];
-
-            var plot = $.plot($('#flotLine5'),[{
-                data: newCust,
-                label: 'New Data Flow',
-                color: '#fff'
-            }],
-            {
-                series: {
-                    lines: {
-                        show: true,
-                        lineColor: '#fff',
-                        lineWidth: 2
-                    },
-                    points: {
-                        show: true,
-                        fill: true,
-                        fillColor: "#ffffff",
-                        symbol: "circle",
-                        radius: 3
-                    },
-                    shadowSize: 0
-                },
-                points: {
-                    show: true,
-                },
-                legend: {
-                    show: false
-                },
-                grid: {
-                    show: false
-                }
-            });
+            
             // Line Chart  #flotLine5 End
             // Traffic Chart using chartist
             if ($('#traffic-chart').length) {
                 var chart = new Chartist.Line('#traffic-chart', {
-                  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                  series: [
-                  [0, 18000, 35000,  25000,  22000,  0],
-                  [0, 33000, 15000,  20000,  15000,  300],
-                  [0, 15000, 28000,  15000,  30000,  5000]
-                  ]
+                  labels: ['2017', '2018', '2019'],
+                  <?php
+                  $cochabamba2017=consulta(2017,"'Cochabamba'");
+                  $cochabamba2018=consulta(2018,"'Cochabamba'");
+                  $cochabamba2019=consulta(2019,"'Cochabamba'");
+                  $santa2017=consulta(2017,"'Santa Cruz'");
+                  $santa2018=consulta(2018,"'Santa Cruz'");
+                  $santa2019=consulta(2019,"'Santa Cruz'");
+                  $paz2017=consulta(2017,"'La Paz'");
+                  $paz2018=consulta(2018,"'La Paz'");
+                  $paz2019=consulta(2019,"'La Paz'");
+                  echo "series: [
+                  
+                  [$santa2017, $santa2018, $santa2019],
+                  [$paz2017, $paz2018, $paz2019],
+                  [$cochabamba2017, $cochabamba2018, $cochabamba2019]
+                  ]";
+                  ?>
+              }, {
+                  low: 0,
+                  showArea: true,
+                  showLine: false,
+                  showPoint: false,
+                  fullWidth: true,
+                  axisX: {
+                    showGrid: true
+                }
+            });
+
+                chart.on('draw', function(data) {
+                    if(data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            }
+            //aumentando inciso b
+
+
+            if ($('#b').length) {
+                var chart = new Chartist.Line('#b', {
+                  labels: ['2017', '2018', '2019'],
+                  <?php
+                  $cochabamba2017=consulta(2017,"'Cochabamba'");
+                  $cochabamba2018=consulta(2018,"'Cochabamba'");
+                  $cochabamba2019=consulta(2019,"'Cochabamba'");
+                  $santa2017=consulta(2017,"'Santa Cruz'");
+                  $santa2018=consulta(2018,"'Santa Cruz'");
+                  $santa2019=consulta(2019,"'Santa Cruz'");
+                  $paz2017=consulta(2017,"'La Paz'");
+                  $paz2018=consulta(2018,"'La Paz'");
+                  $paz2019=consulta(2019,"'La Paz'");
+                  echo "series: [
+                  
+                  [$santa2017, $santa2018, $santa2019],
+                  [$paz2017, $paz2018, $paz2019],
+                  [$cochabamba2017, $cochabamba2018, $cochabamba2019]
+                  ]";
+                  ?>
+              }, {
+                  low: 0,
+                  showArea: true,
+                  showLine: false,
+                  showPoint: false,
+                  fullWidth: true,
+                  axisX: {
+                    showGrid: true
+                }
+            });
+
+                chart.on('draw', function(data) {
+                    if(data.type === 'line' || data.type === 'area') {
+                        data.element.animate({
+                            d: {
+                                begin: 2000 * data.index,
+                                dur: 2000,
+                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                                to: data.path.clone().stringify(),
+                                easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                        });
+                    }
+                });
+            }
+            //INCISO C
+            if ($('#c').length) {
+                var chart = new Chartist.Line('#c', {
+                  labels: ['2017', '2018', '2019'],
+                  <?php
+                  $cochabamba2017=consulta(2017,"'Cochabamba'");
+                  $cochabamba2018=consulta(2018,"'Cochabamba'");
+                  $cochabamba2019=consulta(2019,"'Cochabamba'");
+                  $santa2017=consulta(2017,"'Santa Cruz'");
+                  $santa2018=consulta(2018,"'Santa Cruz'");
+                  $santa2019=consulta(2019,"'Santa Cruz'");
+                  $paz2017=consulta(2017,"'La Paz'");
+                  $paz2018=consulta(2018,"'La Paz'");
+                  $paz2019=consulta(2019,"'La Paz'");
+                  echo "series: [
+                  
+                  [$santa2017, $santa2018, $santa2019],
+                  [$paz2017, $paz2018, $paz2019],
+                  [$cochabamba2017, $cochabamba2018, $cochabamba2019]
+                  ]";
+                  ?>
               }, {
                   low: 0,
                   showArea: true,
@@ -517,19 +608,7 @@
                 
             }
             //Traffic chart chart-js  End
-            // Bar Chart #flotBarChart
-            $.plot("#flotBarChart", [{
-                data: [[0, 18], [2, 8], [4, 5], [6, 13],[8,5], [10,7],[12,4], [14,6],[16,15], [18, 9],[20,17], [22,7],[24,4], [26,9],[28,11]],
-                bars: {
-                    show: true,
-                    lineWidth: 0,
-                    fillColor: '#ffffff8a'
-                }
-            }], {
-                grid: {
-                    show: false
-                }
-            });
+            
             // Bar Chart #flotBarChart End
         });
     </script>
