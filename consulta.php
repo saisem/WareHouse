@@ -72,7 +72,37 @@
 </head>
 
 <body>
+    <?php
+        $ambiente="'".$_POST['nom']."'";
+
+    function consulta($anio,$departamento){
+        $conexion=mysqli_connect('localhost','root','','baseproyect2');
+        global $ambiente;
+        $sql="select h.direccion , p.detalle , p.nombre , s.fecha , count(p.nombre) as uso
+        from dimhotel2  h, dimpaqturis2 p, dataproblema2 s
+        WHERE s.idhotel2=h.idhotel2 and s.idpaqtur2=p.idpaqtur2 and h.direccion=$departamento and YEAR(s.fecha)=$anio AND p.nombre=$ambiente
+        GROUP BY p.nombre
+        HAVING count(p.nombre)";
+        $result=mysqli_query($conexion,$sql);
+        $dep=mysqli_fetch_array($result);
+        return $dep['uso'];
+        }
+
+        function total($departamento){
+            $conexion=mysqli_connect('localhost','root','','baseproyect2');
+            global $ambiente;
+            $sql="select h.direccion , p.detalle , p.nombre , s.fecha , count(p.nombre) as uso
+            from dimhotel2  h, dimpaqturis2 p, dataproblema2 s
+            WHERE s.idhotel2=h.idhotel2 and s.idpaqtur2=p.idpaqtur2 and h.direccion=$departamento AND p.nombre=$ambiente
+            GROUP BY p.nombre
+            HAVING count(p.nombre)";
+            $result=mysqli_query($conexion,$sql);
+            $dep=mysqli_fetch_array($result);
+            return $dep['uso'];
+            }
     
+    ?>
+
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -81,11 +111,74 @@
                     <li class="active">
                         <a href="index.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    
-                    
-                    
+                    <li class="menu-title">UI elements</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
+                        <ul class="sub-menu children dropdown-menu">                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
+                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
 
-                    
+                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
+                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
+                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
+                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
+                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
+                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
+                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">Icons</li><!-- /.menu-title -->
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a></li>
+                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
+                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">Extras</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -97,7 +190,7 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="images/loguito.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -119,17 +212,43 @@
                 
                 <!-- /Widgets -->
                 <!--  Traffic  -->
-                <div class="row">
+                
+            <!--aumentado incisio b-->
+        
+            <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="box-title">HOSPEDAJES</h4>
+                                <h2> SELECCIONE OTRO PAQUETE PARA VER RESULTADOS </h2>
+                                
+                            </div>
+                            <div class="form-group col-md-5">
+                            <label for="subSeccion">Paquete turistico</label>
+                            <form action="consulta.php" method="POST">
+                            <select class="form-control" name="nom" id="nom">
+                            <?php
+                            $conexion=mysqli_connect('localhost','root','','baseproyect2');
+                            $sql="select p.nombre as nombre
+                            from dimpaqturis2 p
+                            GROUP BY p.nombre";
+                            $result=mysqli_query($conexion,$sql);
+                             while($paquetes=mysqli_fetch_array($result)){
+                                 
+                                 ?>
+                            <option value=<?php echo $paquetes['nombre'] ?>><?php echo $paquetes['nombre'] ?> </option>
+                             <?php 
+                             }
+                           ?>
+                            </select>
+                            <button type="submit"> motrar</button>
+                            </form>
+                            <h2 ><?php echo "PAQUETE TURISTICO MOSTRADO ACTUALMENTE:$ambiente" ;?></h2>
                             </div>
                             <div class="row">
                                 <div class="col-lg-8">
                                     <div class="card-body">
                                         <!-- <canvas id="TrafficChart"></canvas>   -->
-                                        <div id="traffic-chart" class="traffic-chart"></div>
+                                        <div id="b" class="traffic-chart"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -164,91 +283,9 @@
                     </div><!-- /# column -->
                 </div>
 
-
-            <!--aumentado incisio b-->
-            
-            <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2> Selecciona un Paquete turistico para ver los reportes</h2>
-                                <h4 class="box-title">PAQUETES TURISTICOS</h4>
-                            </div>
-                            <div class="form-group col-md-5">
-                            <label for="subSeccion">Paquete turistico</label>
-                            <form action="consulta.php" method="POST">
-                            <select class="form-control" name="nom" id="nom">
-                            <?php
-                            $conexion=mysqli_connect('localhost','root','','baseproyect2');
-                            $sql="select p.nombre as nombre
-                            from dimpaqturis2 p
-                            GROUP BY p.nombre";
-                            $result=mysqli_query($conexion,$sql);
-                             while($paquetes=mysqli_fetch_array($result)){
-                                 
-                                 ?>
-                            <option value=<?php echo $paquetes['nombre'] ?>><?php echo $paquetes['nombre'] ?> </option>
-                             <?php 
-                             }
-                           ?>
-                            </select>
-                            <button type="submit"> VER REPORTE</button>
-                            </form>
-                            </div>
-                             <!-- /.row -->
-                            <div class="card-body"></div>
-                        </div>
-                    </div><!-- /# column -->
-                </div>
-
                 <!--  fin inciso b-->
 
 
-                <!--INCISO C-->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">INGRESOS DE HOTELES</h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        <!-- <canvas id="TrafficChart"></canvas>   -->
-                                        <div id="c" class="traffic-chart"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">TODOS LOS AÑOS</h4>
-                                            <div class="por-txt">Santa Cruz <?php echo totalIngreso("'Santa Cruz'");?></div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 90%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title"></h4>
-                                            <div class="por-txt">Cochabama <?php echo totalIngreso("'Cochabamba'");?></div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title"></h4>
-                                            <div class="por-txt">La Paz <?php echo totalIngreso("'La Paz'");?></div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 60%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> <!-- /.card-body -->
-                                </div>
-                            </div> <!-- /.row -->
-                            <div class="card-body"></div>
-                        </div>
-                    </div><!-- /# column -->
-                </div>
 
 
                 <!--FIN INCISO C-->
@@ -358,55 +395,7 @@
         </footer>
         <!-- /.site-footer -->
     </div>
-    <?php
    
-    function consulta($anio,$departamento){
-    global $conexion;
-    $sql="select  o.direccion , i.fecha  , count(h.nroHabitacion) AS UsoHabitaciones 
-    from dim_cliente1 c, dim_hotel o, dim_ingcliente i, dim_habitacion  h, dataproblema1 p
-    WHERE p.id_cliente1=c.id_cliente1 and p.id_hotel1=o.id_hotel1 and p.id_cliente1=i.id_ingClient1 AND o.direccion=$departamento and p.id_habitacion1=h.id_habitacion1 and YEAR(i.fecha)=$anio
-    GROUP BY o.direccion
-    having count(h.nroHabitacion)";
-    $result=mysqli_query($conexion,$sql);
-    $dep=mysqli_fetch_array($result);
-    return $dep['UsoHabitaciones'];
-    }
-    function total($departamento){
-        $conexion=mysqli_connect('localhost','root','','baseproyect2');
-        $sql="select  o.direccion , i.fecha  , count(h.nroHabitacion) AS UsoHabitaciones 
-        from dim_cliente1 c, dim_hotel o, dim_ingcliente i, dim_habitacion  h, dataproblema1 p
-        WHERE p.id_cliente1=c.id_cliente1 and p.id_hotel1=o.id_hotel1 and p.id_cliente1=i.id_ingClient1 AND o.direccion=$departamento and p.id_habitacion1=h.id_habitacion1
-        GROUP BY o.direccion
-        having count(h.nroHabitacion)";
-        $result=mysqli_query($conexion,$sql);
-        $dep=mysqli_fetch_array($result);
-        return $dep['UsoHabitaciones'];
-        }
-    function ingreso($anio,$departamento){
-        $conexion=mysqli_connect('localhost','root','','baseproyect2');
-        $sql="SELECT i.fecha , l.direccion , SUM(i.ingresos) as ingresoTotal
-        from dim_ingresos i, dim_lugar l, dataproblema3 p
-        WHERE p.id_ingresos3=i.id_ingresos3 and p.id_lugar3=l.id_lugar3 and l.direccion=$departamento and YEAR(i.fecha)=$anio
-        GROUP BY l.direccion
-        HAVING SUM(i.ingresos)";
-        $result=mysqli_query($conexion,$sql);
-        $dep=mysqli_fetch_array($result);
-        return $dep['ingresoTotal'];
-
-    }  
-    function totalIngreso($departamento){
-        $conexion=mysqli_connect('localhost','root','','baseproyect2');
-        $sql="SELECT i.fecha , l.direccion , SUM(i.ingresos) as ingresoTotal
-        from dim_ingresos i, dim_lugar l, dataproblema3 p
-        WHERE p.id_ingresos3=i.id_ingresos3 and p.id_lugar3=l.id_lugar3 and l.direccion=$departamento 
-        GROUP BY l.direccion
-        HAVING SUM(i.ingresos)";
-        $result=mysqli_query($conexion,$sql);
-        $dep=mysqli_fetch_array($result);
-        return $dep['ingresoTotal'];
-
-    }  
-?>
     <!-- /#right-panel -->
 
     <!-- Scripts -->
@@ -444,8 +433,12 @@
             
             // Line Chart  #flotLine5 End
             // Traffic Chart using chartist
-            if ($('#traffic-chart').length) {
-                var chart = new Chartist.Line('#traffic-chart', {
+           
+            //aumentando inciso b
+
+
+            if ($('#b').length) {
+                var chart = new Chartist.Line('#b', {
                   labels: ['2017', '2018', '2019'],
                   <?php
                   $cochabamba2017=consulta(2017,"'Cochabamba'");
@@ -489,58 +482,7 @@
                     }
                 });
             }
-            //aumentando inciso b
-
-
-            //INCISO C
-            if ($('#c').length) {
-                var chart = new Chartist.Line('#c', {
-                  labels: ['2017', '2018', '2019','2020','2021'],
-                  <?php
-                  $Icochabamba2017=ingreso(2017,"'Cochabamba'");
-                  $Icochabamba2018=ingreso(2018,"'Cochabamba'");
-                  $Icochabamba2019=ingreso(2019,"'Cochabamba'");
-                  $Icochabamba2020=ingreso(2020,"'Cochabamba'");
-                  $Isanta2017=ingreso(2017,"'Santa Cruz'");
-                  $Isanta2018=ingreso(2018,"'Santa Cruz'");
-                  $Isanta2019=ingreso(2019,"'Santa Cruz'");
-                  $Isanta2020=ingreso(2020,"'Santa Cruz'");
-                  $Ipaz2017=ingreso(2017,"'La Paz'");
-                  $Ipaz2018=ingreso(2018,"'La Paz'");
-                  $Ipaz2019=ingreso(2019,"'La Paz'");
-                  $Ipaz2020=ingreso(2020,"'La Paz'");
-                  echo "series: [
-                  
-                  [$Isanta2017, $Isanta2018, $Isanta2019,$Isanta2018],
-                  [$Ipaz2017, $Ipaz2018, $Ipaz2019,$Ipaz2020],
-                  [$Icochabamba2017, $Icochabamba2018, $Icochabamba2019,$Icochabamba2020]
-                  ]";
-                  ?>
-              }, {
-                  low: 0,
-                  showArea: true,
-                  showLine: false,
-                  showPoint: false,
-                  fullWidth: true,
-                  axisX: {
-                    showGrid: true
-                }
-            });
-
-                chart.on('draw', function(data) {
-                    if(data.type === 'line' || data.type === 'area') {
-                        data.element.animate({
-                            d: {
-                                begin: 2000 * data.index,
-                                dur: 2000,
-                                from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                                to: data.path.clone().stringify(),
-                                easing: Chartist.Svg.Easing.easeOutQuint
-                            }
-                        });
-                    }
-                });
-            }
+            
             // Traffic Chart using chartist End
             //Traffic chart chart-js
             if ($('#TrafficChart').length) {
