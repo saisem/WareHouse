@@ -239,10 +239,19 @@
                             <div class="form-group col-md-5">
                             <label for="subSeccion">Paquete turistico</label>
                             <select class="form-control" name="subSeccion" id="subSeccion">
-                            <option value="0">Sin seleccionar</option>
-                            
-                            <option value="Excursion">Excursion</option>
-                           
+                            <?php
+                            $conexion=mysqli_connect('localhost','root','','baseproyect2');
+                            $sql="select p.nombre as nombre
+                            from dimpaqturis2 p
+                            GROUP BY p.nombre";
+                            $result=mysqli_query($conexion,$sql);
+                             while($paquetes=mysqli_fetch_array($result)){
+                                 
+                                 ?>
+                            <option value=<?php echo $paquetes['nombre'] ?>><?php echo $paquetes['nombre'] ?> </option>
+                             <?php 
+                             }
+                           ?>
                             </select>
                             </div>
                             <div class="row">
@@ -442,7 +451,7 @@
         <!-- /.site-footer -->
     </div>
     <?php
-    $conexion=mysqli_connect('localhost','root','','baseproyect2');
+   
     function consulta($anio,$departamento){
     global $conexion;
     $sql="select  o.direccion , i.fecha  , count(h.nroHabitacion) AS UsoHabitaciones 
