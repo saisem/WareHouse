@@ -155,12 +155,33 @@
                                             <div class="progress mb-2" style="height: 5px;">
                                                 <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 100%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
+                                            
                                         </div>
+                                        <label for="subSeccion">Ver detalles</label>
+                            <form action="habitaciones.php" method="POST">
+                            <select class="form-control" name="nom" id="nom">
+                            <?php
+                            $conexion=mysqli_connect('localhost','root','','baseproyect2');
+                            $sql="select dimhotel2.direccion from dimhotel2";
+                            $result=mysqli_query($conexion,$sql);
+                             while($paquetes=mysqli_fetch_array($result)){
+                                 $paq=$paquetes['direccion'];
+                                 ?>
+                            <option value=<?php echo "'".$paq."'" ?>><?php echo $paq?> </option>
+                             <?php 
+                             }
+                           ?>
+                            </select>
+                            <button type="submit"> VER REPORTE</button>
+                            </form>
                                     </div> <!-- /.card-body -->
                                 </div>
+                                
                             </div> <!-- /.row -->
                             <div class="card-body"></div>
+                            
                         </div>
+                        
                     </div><!-- /# column -->
                 </div>
 
@@ -171,23 +192,22 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h2> Selecciona un Paquete turistico para ver los reportes</h2>
+                                
                                 <h4 class="box-title">PAQUETES TURISTICOS</h4>
                             </div>
                             <div class="form-group col-md-5">
                             <label for="subSeccion">Paquete turistico</label>
-                            <form action="consulta.php" method="POST">
+                            <label for="subSeccion">Ver detalles</label>
+                            <form action="paquetes.php" method="POST">
                             <select class="form-control" name="nom" id="nom">
                             <?php
                             $conexion=mysqli_connect('localhost','root','','baseproyect2');
-                            $sql="select p.nombre as nombre
-                            from dimpaqturis2 p
-                            GROUP BY p.nombre";
+                            $sql="select dimhotel2.direccion from dimhotel2";
                             $result=mysqli_query($conexion,$sql);
                              while($paquetes=mysqli_fetch_array($result)){
                                  
                                  ?>
-                            <option value=<?php echo $paquetes['nombre'] ?>><?php echo $paquetes['nombre'] ?> </option>
+                            <option value=<?php echo "'".$paquetes['direccion']."'" ?>><?php echo $paquetes['direccion'] ?> </option>
                              <?php 
                              }
                            ?>
@@ -242,6 +262,7 @@
                                                 <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 100%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
+                                        
                                     </div> <!-- /.card-body -->
                                 </div>
                             </div> <!-- /.row -->
